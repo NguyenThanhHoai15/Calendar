@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react';
 import { Box, Button, Drawer, Grid, IconButton, Stack, TextField } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { addAppointment, updateAppointment } from '../../features/calendar/caledarSlice';
 
 import './css/calendarForm.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { propsToClassKey } from '@mui/styles';
 
 const formStyle = {
     padding: '20px 30px 30px 30px',
@@ -20,12 +21,11 @@ export default function CalendarForm(props) {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
         defaultValues: {
-            title: props.item === null ? "ashash" : "asfadaswdas",
-            description: "rtyghjukl"
+            title: props.item === null ? "" : props.item.title,
+            description: props.item?.description,
         }
     });
 
-    console.log("item", props.item);
     const onSubmit = data => {
         props.item === null ?
             data.id = props.appointments.length :
@@ -69,9 +69,6 @@ export default function CalendarForm(props) {
                 </div>
                 <div className='group'>
                     <label>Details</label> <br />
-                    <div>
-                        {props.item?.title}
-                    </div>
                     <input id='title' name="title" type='text' placeholder='Title' {...register("title")} />
                 </div>
                 <div className='group'>
@@ -81,7 +78,7 @@ export default function CalendarForm(props) {
                                 <Stack spacing={3}>
                                     <DateTimePicker
                                         renderInput={(params) => <TextField {...params} {...register("startDate")} />}
-                                        value={endDate}
+                                        value={startDate}
                                         onChange={(newValue) => {
                                             setEndDate(newValue);
                                         }}

@@ -3,39 +3,22 @@ import {
 } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import TableCell from '@mui/material/TableCell';
-// import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { ViewState } from '@devexpress/dx-react-scheduler';
 import classNames from 'clsx';
 import {
     Scheduler,
     MonthView,
-    // WeekView,
-    // DayView,
-    Appointments,
     Toolbar,
     DateNavigator,
-    // AppointmentTooltip,
-    // AppointmentForm,
-    // EditRecurrenceMenu,
-    // Resources,
-    // DragDropProvider,
     CurrentTimeIndicator,
     TodayButton,
     ViewSwitcher,
 } from '@devexpress/dx-react-scheduler-material-ui';
-// import WbSunny from '@mui/icons-material/WbSunny';
-// import FilterDrama from '@mui/icons-material/FilterDrama';
-// import Opacity from '@mui/icons-material/Opacity';
-// import ColorLens from '@mui/icons-material/ColorLens';
-import { owners } from '../../demo-data/tasks';
 import CalendarForm from './calendarForm';
-import { useDispatch, useSelector } from 'react-redux';
-// import { Button } from '@mui/material';
-// import { addAppointment } from '../../features/calendar/caledarSlice';
 import moment from 'moment';
-import { memo, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import EditRecurrenceMenu from './EditRecurrenceMenu';
-// import { IconButton, Menu } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 const PREFIX = 'Demo';
 
@@ -73,22 +56,6 @@ const getBorder = theme => (`1px solid ${theme.palette.mode === 'light'
 const DayScaleCell = props => (
     <MonthView.DayScaleCell {...props} style={{ textAlign: 'center', fontWeight: 'bold' }} />
 );
-
-// const StyledOpacity = styled(Opacity)(() => ({
-//     [`&.${classes.rain}`]: {
-//         color: '#4FC3F7',
-//     },
-// }));
-// const StyledWbSunny = styled(WbSunny)(() => ({
-//     [`&.${classes.sun}`]: {
-//         color: '#FFEE58',
-//     },
-// }));
-// const StyledFilterDrama = styled(FilterDrama)(() => ({
-//     [`&.${classes.cloud}`]: {
-//         color: '#90A4AE',
-//     },
-// }));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${classes.cell}`]: {
@@ -129,49 +96,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
         opacity: '0.5',
     },
 }));
-// const StyledDivText = styled('div')(() => ({
-//     [`&.${classes.text}`]: {
-//         padding: '0.5em',
-//         // textAlign: 'center',
-//     },
-// }));
-const StyledDivContent = styled('div')(() => ({
-    [`&.${classes.content}`]: {
-        display: 'flex',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        alignItems: 'center',
-    },
-}));
-
-const StyledAppointmentsAppointment = styled(Appointments.Appointment)(() => ({
-    [`&.${classes.appointment}`]: {
-        borderRadius: '10px',
-        '&:hover': {
-            opacity: 0.6,
-        },
-    },
-}));
-
-const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
-    [`&.${classes.flexibleSpace}`]: {
-        flex: 'none',
-    },
-    [`& .${classes.flexContainer}`]: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-}));
-const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentContent)(() => ({
-    [`&.${classes.apptContent}`]: {
-        '&>div>div': {
-            whiteSpace: 'normal !important',
-            lineHeight: 1.2,
-        },
-    },
-}));
 
 const appointmentStyle = {
     backgroundColor: 'Khaki',
@@ -182,12 +106,6 @@ const appointmentStyle = {
     borderRadius: 8
 }
 
-const resources = [{
-    fieldName: 'ownerId',
-    title: 'Owners',
-    instances: owners,
-}];
-
 const CellBase = memo(({
     startDate,
     formatDate,
@@ -196,7 +114,7 @@ const CellBase = memo(({
     handleItem,
     data
 }) => {
-    const iconId = Math.abs(Math.floor(Math.sin(startDate.getDate()) * 10) % 3);
+    // const iconId = Math.abs(Math.floor(Math.sin(startDate.getDate()) * 10) % 3);
     const isFirstMonthDay = startDate.getDate() === 1;
     const currentDate = new Date();
     const dateActive = currentDate.getDate() === startDate.getDate() && currentDate.getMonth() === startDate.getMonth() ? true : false;
@@ -256,41 +174,6 @@ const CellBase = memo(({
     );
 });
 
-// const TimeTableCell = (CellBase);
-
-const Appointment = (({ ...restProps }) => (
-    <StyledAppointmentsAppointment
-        {...restProps}
-        className={classes.appointment}
-    // onClick={() => console.log(restProps.data)}
-    />
-));
-
-const AppointmentContent = (({ ...restProps }) => (
-    <StyledAppointmentsAppointmentContent {...restProps} className={classes.apptContent} />
-));
-
-const FlexibleSpace = (({ ...restProps }) => (
-    <StyledToolbarFlexibleSpace {...restProps} className={classes.flexibleSpace}>
-        <div className={classes.flexContainer}>
-            {/* <ColorLens fontSize="large" htmlColor="#FF7043" />
-            <Typography variant="h5" style={{ marginLeft: '10px' }}>Art School</Typography> */}
-            {/* <div style={{
-                marginLeft: 10,
-                width: 120,
-                height: 40,
-                borderRadius: '5px 5px 5px 5px',
-                border: '1px solid Silver',
-                display: 'flex',
-                justifyContent: 'left',
-                alignItems: 'center',
-                color: 'DodgerBlue'
-            }}>
-                <SystemUpdateAltIcon color="primary" /> Export
-            </div> */}
-        </div>
-    </StyledToolbarFlexibleSpace>
-));
 
 export default function CalendarContent(props) {
 
@@ -335,7 +218,7 @@ export default function CalendarContent(props) {
 
                     {/* Renders the Toolbar */}
                     <Toolbar
-                        flexibleSpaceComponent={FlexibleSpace}
+                    // flexibleSpaceComponent={FlexibleSpace}
                     />
 
                     {/* allows a user to switch between views at runtime. */}
