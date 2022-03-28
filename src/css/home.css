@@ -1,0 +1,35 @@
+.home__search {
+    background-color: rgb(25, 118, 210);
+    border-radius: 0px 0px 80px 80px;
+    padding-top: 50px;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.home-search__title >p  {
+    color: white;
+    font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+} 
+
+.home-search__content{
+    border: 4px solid yellow;
+    background-color: white;
+    padding: 10px 10px 10px 10px;
+}
+
+.home__body{
+    /* margin: 0px 100px 0px 100px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+} 
+.home-body__carousel {
+    width: 95%;
+}
+
+.home-body__imageList {
+    width: 80%;
+}
+

@@ -1,0 +1,47 @@
+.cardContainer {
+    overflow: hidden;
+}
+
+.cardContainer > .card {
+    transition: transform 1.5s ease;
+    /* overflow: hidden; */
+}
+
+.card:hover {
+    transform: scale(1.5);
+    position: relative;
+    z-index: 1
+}
+
+/* label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.group {
+    margin-bottom: 20px;
+}
+
+input {
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 18px;
+    border: 1px solid silver;
+}
+
+textarea {
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    border: 1px solid silver;
+}
+
+textarea:focus, #title:hover{
+    border: 2px solid #1670BE;
+    box-shadow: 0 0 3px #1670BE;
+    outline-offset: 0px;
+    outline: none;
+} */

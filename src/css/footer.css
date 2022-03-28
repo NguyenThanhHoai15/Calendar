@@ -1,0 +1,28 @@
+.footer{
+    background-color: rgb(25, 118, 210);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    padding-bottom: 50px;
+    margin-bottom: 0px;
+}
+
+.footer__title {
+    color: white;
+    text-align: center;
+}
+
+.footer__content {
+    display: inline;
+    margin-top: 20px;
+}
+
+.footer__content input {
+    height: 40px;
+    width: 220px;
+    font-size: 18px;
+    border-radius: 5px 5px 5px 5px;
+    margin-right: 10px;
+}
