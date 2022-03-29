@@ -83,7 +83,7 @@ export default function CalendarForm(props) {
                                         <TextField
                                             {...field}
                                             fullWidth
-                                            // label={label}
+                                            // label="startDate"
                                             {...register("startDate")}
                                             type="datetime-local"
                                             defaultValue={moment(startDate).format("YYYY-MM-DDThh:mm")}                                            // sx={{ width: 250 }}
@@ -108,7 +108,7 @@ export default function CalendarForm(props) {
                                         <TextField
                                             {...field}
                                             fullWidth
-                                            // label={label}
+                                            // label="endDate"
                                             {...register("endDate")}
                                             type="datetime-local"
                                             defaultValue={moment(endDate).format("YYYY-MM-DDThh:mm")}                                            // sx={{ width: 250 }}
