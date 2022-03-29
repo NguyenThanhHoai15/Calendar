@@ -5,10 +5,11 @@ import { DateTimePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { useForm } from 'react-hook-form';
 import { addAppointment, updateAppointment } from '../../features/calendar/caledarSlice';
-
+import moment from 'moment'
 import './css/calendarForm.css';
 import { useDispatch } from 'react-redux';
 import { propsToClassKey } from '@mui/styles';
+import { Controller } from "react-hook-form";
 
 const formStyle = {
     padding: '20px 30px 30px 30px',
@@ -19,7 +20,7 @@ export default function CalendarForm(props) {
 
     const dispatch = useDispatch();
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, control, reset, formState: { errors } } = useForm({
         defaultValues: {
             title: props.item === null ? "" : props.item.title,
             description: props.item?.description,
@@ -74,34 +75,51 @@ export default function CalendarForm(props) {
                 <div className='group'>
                     <Grid container>
                         <Grid item xs={5.5}>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <Stack spacing={3}>
-                                    <DateTimePicker
-                                        renderInput={(params) => <TextField {...params} {...register("startDate")} />}
-                                        value={startDate}
-                                        onChange={(newValue) => {
-                                            setEndDate(newValue);
-                                        }}
-                                    />
-                                </Stack>
-                            </LocalizationProvider>
+                            <Controller
+                                name={"startDate"}
+                                control={control}
+                                render={({ field }) => (
+                                    <>
+                                        <TextField
+                                            {...field}
+                                            fullWidth
+                                            // label={label}
+                                            {...register("startDate")}
+                                            type="datetime-local"
+                                            defaultValue={moment(startDate).format("YYYY-MM-DDThh:mm")}                                            // sx={{ width: 250 }}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            style={{ marginBottom: '30px' }}
+                                        />
+                                    </>
+                                )}
+                            />
                         </Grid>
                         <Grid item xs={1}>
                             <p style={{ textAlign: 'center' }}>-</p>
                         </Grid>
                         <Grid item xs={5.5}>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <Stack spacing={3}>
-                                    <DateTimePicker
-                                        renderInput={(params) => <TextField {...params} />}
-                                        {...register("endDate")}
-                                        value={endDate}
-                                        onChange={(newValue) => {
-                                            setEndDate(newValue);
-                                        }}
-                                    />
-                                </Stack>
-                            </LocalizationProvider>
+                            <Controller
+                                name={"endDate"}
+                                control={control}
+                                render={({ field }) => (
+                                    <>
+                                        <TextField
+                                            {...field}
+                                            fullWidth
+                                            // label={label}
+                                            {...register("endDate")}
+                                            type="datetime-local"
+                                            defaultValue={moment(endDate).format("YYYY-MM-DDThh:mm")}                                            // sx={{ width: 250 }}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            style={{ marginBottom: '30px' }}
+                                        />
+                                    </>
+                                )}
+                            />
                         </Grid>
                     </Grid>
                 </div>
